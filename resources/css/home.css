@@ -1,0 +1,125 @@
+/* ===== Motion: subtle and optional ===== */
+
+/* Reveal on scroll (JS adds .is-visible). Content stays visible without JS. */
+.js [data-animate] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js [data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+[data-animate-delay="1"] { transition-delay: 0.08s; }
+[data-animate-delay="2"] { transition-delay: 0.16s; }
+[data-animate-delay="3"] { transition-delay: 0.24s; }
+[data-animate-delay="4"] { transition-delay: 0.32s; }
+
+/* Hero entrance */
+@keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.rise {
+    animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-1 { animation-delay: 0.08s; }
+.rise-2 { animation-delay: 0.16s; }
+.rise-3 { animation-delay: 0.24s; }
+.rise-4 { animation-delay: 0.32s; }
+
+/* One-page scrolling: keep section headings clear of the sticky navbar */
+html {
+    scroll-padding-top: 80px;
+}
+
+/* Scroll-spy active state */
+.nav-link.is-active {
+    color: var(--color-ink);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: -21px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-secondary);
+    transform: scaleX(0);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link.is-active::after {
+    transform: scaleX(1);
+}
+
+.nav-link-mobile.is-active {
+    color: var(--color-ink);
+}
+
+.nav-link-mobile.is-active .nav-dot {
+    opacity: 1;
+}
+
+/* Hand-drawn underline that draws itself under the hero headline */
+.draw-line path {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation: draw-line 1s cubic-bezier(0.65, 0, 0.35, 1) 0.6s forwards;
+}
+
+@keyframes draw-line {
+    to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .draw-line path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Navbar gains a shadow once the page scrolls */
+#site-nav.is-scrolled {
+    box-shadow: 0 1px 0 rgba(14, 21, 56, 0.06), 0 8px 24px -12px rgba(14, 21, 56, 0.12);
+}
+
+/* Hamburger -> close */
+.menu-icon span {
+    display: block;
+    height: 1.5px;
+    width: 20px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.menu-icon span + span {
+    margin-top: 5px;
+}
+
+[aria-expanded="true"] .menu-icon span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+[aria-expanded="true"] .menu-icon span:nth-child(2) { opacity: 0; }
+[aria-expanded="true"] .menu-icon span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Fine grid texture for dark panels */
+.grid-texture {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 70% 30%, #000 10%, transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rise { animation: none; }
+    .js [data-animate] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

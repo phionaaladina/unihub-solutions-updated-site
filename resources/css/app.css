@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+@import './home.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    /* Typography */
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* ===== UniHub Solutions brand palette (taken from the logo) ===== */
+    --color-primary: #1d2b72;        /* UniHub navy (wordmark) */
+    --color-primary-light: #3443a0;  /* logo blue */
+    --color-primary-dark: #16215a;
+    --color-ink: #0e1538;            /* deep navy for dark sections */
+
+    --color-secondary: #f68143;      /* logo orange — accents only */
+    --color-secondary-light: #ffa173;
+    --color-secondary-dark: #b4501b; /* orange that passes contrast as text on white */
+    --color-charcoal: #1b1e28;       /* logo charcoal */
+
+    /* Surfaces */
+    --color-paper: #f7f6f2;          /* warm off-white */
+    --color-tertiary: #f7f6f2;
+    --color-tertiary-dark: #ecebe5;
+    --color-line: #e6e4dd;
+    --color-border: #e6e4dd;
+
+    /* Text */
+    --color-text: #1b1e28;
+    --color-text-muted: #5a5f6e;
+
+    --color-grey: #979191;
+    --color-grey-light: #d1cdcd;
+    --color-grey-dark: #635e5e;
+    --color-white: #ffffff;
+    --color-black: #1b1e28;
+    --color-background: #ffffff;
+
+    --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        font-feature-settings: 'ss01', 'cv11';
+    }
+
+    h1, h2, h3 {
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    ::selection {
+        background: color-mix(in srgb, var(--color-secondary) 30%, transparent);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-secondary);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+}
+
+@layer components {
+    .container-x {
+        @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+    }
+
+    .section {
+        @apply py-20 sm:py-28;
+    }
+
+    /* Small label above headings: short orange rule + navy caps */
+    .eyebrow {
+        @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary;
+    }
+    .eyebrow::before {
+        content: '';
+        @apply h-px w-8 bg-secondary;
+    }
+    .eyebrow-light {
+        @apply text-white/80;
+    }
+
+    .display {
+        @apply text-[clamp(2.5rem,6vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.035em];
+    }
+
+    .h2 {
+        @apply text-[clamp(1.9rem,3.6vw,2.9rem)] font-semibold leading-[1.1] text-ink;
+    }
+
+    .lead {
+        @apply text-lg leading-relaxed text-text-muted sm:text-xl sm:leading-relaxed;
+    }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-semibold transition duration-300 ease-out;
+    }
+    .btn svg {
+        @apply size-4 transition-transform duration-300;
+    }
+    .btn:hover svg {
+        @apply translate-x-0.5;
+    }
+    /* Use as: class="btn btn-primary" */
+    .btn-primary {
+        @apply bg-primary text-white hover:bg-ink;
+    }
+    .btn-accent {
+        @apply bg-secondary text-ink hover:bg-secondary-light;
+    }
+    .btn-ghost {
+        @apply border border-line bg-white text-ink hover:border-ink;
+    }
+    .btn-ghost-light {
+        @apply border border-white/25 text-white hover:border-white hover:bg-white/5;
+    }
+
+    .link-arrow {
+        @apply inline-flex items-center gap-2 font-semibold text-primary transition hover:text-secondary-dark;
+    }
+    .link-arrow svg {
+        @apply size-4 transition-transform duration-300;
+    }
+    .link-arrow:hover svg {
+        @apply translate-x-1;
+    }
+
+    /* Form fields */
+    .field {
+        @apply w-full rounded-xl border border-line bg-white px-4 py-3.5 text-text transition placeholder:text-text-muted/60 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10;
+    }
+    .label {
+        @apply mb-2 block text-sm font-medium text-ink;
+    }
+}
